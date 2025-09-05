@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.gcdOfStrings("ABABAB", "ABAB"));
-
     }
 
     public String gcdOfStrings(String str1, String str2) {
@@ -16,5 +18,14 @@ public class Solution {
 
     static int gcd(int a, int b) {
         return b == 0 ? a : gcd(b, a % b);
+    }
+
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        int max = Arrays.stream(candies).max().getAsInt();
+        List<Boolean> result = new ArrayList<>(candies.length);
+        for (int i : candies) {
+            result.add(i + extraCandies >= max);
+        }
+        return result;
     }
 }
