@@ -1,10 +1,9 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
+        System.out.println(solution.reverseVowelsOptimalSolution("leetcode"));
     }
 
     public String gcdOfStrings(String str1, String str2) {
@@ -46,5 +45,49 @@ public class Solution {
             }
         }
         return count >= n;
+    }
+
+    public String reverseVowels(String s) {
+        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+        List<Character> characters = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (vowels.contains(s.charAt(i))) {
+                characters.add(s.charAt(i));
+            }
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        int count = characters.size() - 1;
+        for (int i = 0; i < s.length(); i++) {
+            if (vowels.contains(s.charAt(i))) {
+                stringBuilder.append(characters.get(count));
+                count--;
+            } else {
+                stringBuilder.append(s.charAt(i));
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    public String reverseVowelsOptimalSolution(String s) {
+        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+        char[] chars = s.toCharArray();
+        int left = 0, right = chars.length - 1;
+
+        while (left < right) {
+            while (left < right && !vowels.contains(chars[left])) {
+                left++;
+            }
+            while (left < right && !vowels.contains(chars[right])) {
+                right--;
+            }
+            if (left < right) {
+                char temp = chars[left];
+                chars[left] = chars[right];
+                chars[right] = temp;
+                left++;
+                right--;
+            }
+        }
+        return new String(chars);
     }
 }
