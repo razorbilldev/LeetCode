@@ -3,7 +3,7 @@ import java.util.*;
 public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.reverseVowelsOptimalSolution("leetcode"));
+        System.out.println(solution.reverseWordsOptimalSolution("a good   example"));
     }
 
     public String gcdOfStrings(String str1, String str2) {
@@ -89,5 +89,26 @@ public class Solution {
             }
         }
         return new String(chars);
+    }
+
+    public String reverseWords(String s) {
+        StringBuilder stringBuilder = new StringBuilder();
+        String[] strings = s.split(" ");
+        for (int i = strings.length - 1; i >= 0; i--) {
+            if (!strings[i].isEmpty()) {
+                stringBuilder.append(strings[i].trim()).append(" ");
+            }
+        }
+        return new String(stringBuilder).trim();
+    }
+
+    public String reverseWordsOptimalSolution(String s) {
+        String[] words = s.trim().split("\\s+");
+        StringBuilder sb = new StringBuilder();
+        for (int i = words.length - 1; i >= 0; i--) {
+            sb.append(words[i]);
+            if (i > 0) sb.append(" "); // add space only between words
+        }
+        return sb.toString();
     }
 }
