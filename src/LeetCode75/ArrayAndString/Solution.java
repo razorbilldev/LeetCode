@@ -1,9 +1,10 @@
+package LeetCode75.ArrayAndString;
+
 import java.util.*;
 
 public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.reverseWordsOptimalSolution("a good   example"));
     }
 
     public String gcdOfStrings(String str1, String str2) {
@@ -159,11 +160,56 @@ public class Solution {
                 first = i;
             } else if (i <= second) {
                 second = i;
-            }else {
+            } else {
                 return true;
             }
         }
         return false;
+    }
 
+    public int compress(char[] chars) {
+        StringBuilder sb = new StringBuilder();
+        char temp = chars[0];
+        int counter = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == temp) {
+                counter++;
+                if (i == chars.length - 1) {
+                    sb.append(chars[i]).append(counter);
+                }
+            } else {
+                sb.append(temp).append(counter);
+                temp = chars[i];
+                counter = 1;
+                if (i == chars.length - 1) {
+                    sb.append(chars[i]).append(counter);
+                }
+            }
+        }
+        return sb.length();
+    }
+
+    public int compress2(char[] chars) {
+        int read = 0;
+        int write = 0;
+
+        while (read < chars.length) {
+            char current = chars[read];
+            int count = 0;
+
+            while (read < chars.length && chars[read] == current) {
+                read++;
+                count++;
+            }
+
+            chars[write++] = current;
+
+            if (count > 1) {
+                for (char ch : String.valueOf(count).toCharArray()) {
+                    chars[write++] = ch;
+                }
+            }
+        }
+        return write;
     }
 }
