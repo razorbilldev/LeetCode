@@ -111,4 +111,42 @@ public class Solution {
         }
         return sb.toString();
     }
+
+    public int[] productExceptSelf(int[] nums) {
+        int[] products = new int[nums.length];
+        int temp = 1;
+        int count = 0;
+        for (int i : nums) {
+            if (i != 0) {
+                temp *= i;
+            } else {
+                count++;
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (count > 1) {
+                products[i] = 0;
+            } else if (count == 1) {
+                products[i] = nums[i] != 0 ? 0 : temp;
+            } else {
+                products[i] = temp / nums[i];
+            }
+        }
+        return products;
+    }
+
+    public int[] productExceptSelf2(int[] nums) {
+        int n = nums.length;
+        int[] answer = new int[n];
+        answer[0] = 1;
+        for (int i = 1; i < n; i++) {
+            answer[i] = answer[i - 1] * nums[i - 1];
+        }
+        int suffix = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            answer[i] *= suffix;
+            suffix *= nums[i];
+        }
+        return answer;
+    }
 }
