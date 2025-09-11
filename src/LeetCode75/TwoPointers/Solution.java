@@ -1,10 +1,12 @@
 package LeetCode75.TwoPointers;
 
+import java.util.Arrays;
+
 public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-        System.out.println(solution.maxAreaOptimalSolution(height));
+        int[] height = {4,4,1,3,1,3,2,2,5,5,1,5,2,1,2,3,5,4};
+        System.out.println(solution.maxOperations(height, 2));
     }
 
     public void moveZeroes(int[] nums) {
@@ -67,5 +69,24 @@ public class Solution {
         return max;
     }
 
+    public int maxOperations(int[] nums, int k) {
+        int left = 0;
+        int right = nums.length-1;
+        int operations = 0;
+        Arrays.sort(nums);
+        while (left < right) {
+            int sum = nums[left] + nums[right];
+            if (sum == k) {
+                operations++;
+                left++;
+                right--;
+            } else if (sum > k) {
+                right--;
+            } else {
+                left++;
+            }
+        }
+        return operations;
+    }
 
 }
